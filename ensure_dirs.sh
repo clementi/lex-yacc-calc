@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 DIRS=(./src ./inc ./bin ./obj)
 
 for d in "${DIRS[@]}"
