@@ -13,7 +13,6 @@ double vbltable[26];
 %left '-' '+'
 %left '*' '/'
 %nonassoc UMINUS
-
 %type <dval> expression
 %%
 statement_list: statement '\n'

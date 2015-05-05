@@ -5,27 +5,27 @@ OBJ=./obj
 INC=./inc
 SRC=./src
 
+CC=gcc
+
 EXENAME=calc
 
-LEX=flex
-LIBLEX=-lfl
+LEX=lex
+LIBLEX=-ll
 
 YACC=yacc
 LIBYACC=-ly
 
 $(BIN)/$(EXENAME): ensure_dirs $(OBJ)/y.tab.o $(OBJ)/lex.yy.o
-	cc $(OBJ)/y.tab.o $(OBJ)/lex.yy.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC)
+	$(CC) $(OBJ)/y.tab.o $(OBJ)/lex.yy.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC)
 
 $(OBJ)/y.tab.o: ensure_dirs $(SRC)/y.tab.c $(INC)/y.tab.h
-	cc -c $(SRC)/y.tab.c -I$(INC) -o $(OBJ)/y.tab.o
+	$(CC) -c $(SRC)/y.tab.c -I$(INC) -o $(OBJ)/y.tab.o
 
 $(OBJ)/lex.yy.o: ensure_dirs $(SRC)/lex.yy.c
-	cc -c $(SRC)/lex.yy.c -I$(INC) -o $(OBJ)/lex.yy.o
+	$(CC) -c $(SRC)/lex.yy.c -I$(INC) -o $(OBJ)/lex.yy.o
 
+# Also $(INC)/y.tab.h
 $(SRC)/y.tab.c: ensure_dirs $(SRC)/calc.y
-	$(YACC) --defines=$(INC)/y.tab.h $(SRC)/calc.y -o $(SRC)/y.tab.c
-
-$(INC)/y.tab.h: ensure_dirs $(SRC)/calc.y
 	$(YACC) --defines=$(INC)/y.tab.h $(SRC)/calc.y -o $(SRC)/y.tab.c
 
 $(SRC)/lex.yy.c: ensure_dirs $(SRC)/calc.l

@@ -9,6 +9,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
-    sudo apt-get install -y flex bison vim-nox make git
+    sudo apt-get install -y flex bison vim-nox make git valgrind gdb
   SHELL
 end
