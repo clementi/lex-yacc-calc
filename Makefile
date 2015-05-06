@@ -1,5 +1,7 @@
 # vim: noet :
 
+CFLAGS=-O2
+
 BIN=./bin
 OBJ=./obj
 INC=./inc
@@ -15,17 +17,22 @@ LIBLEX=-ll
 YACC=yacc
 LIBYACC=-ly
 
+all: $(BIN)/$(EXENAME)
+
+dev: CFLAGS=-g -Wall -Wextra
+dev: all
+
 $(BIN)/$(EXENAME): $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o
 	@mkdir -p $(BIN)
-	$(CC) $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC)
+	$(CC) $(CFLAGS) $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC)
 
 $(OBJ)/y.tab.o: $(SRC)/y.tab.c $(INC)/y.tab.h
 	@mkdir -p $(OBJ)
-	$(CC) -c $(SRC)/y.tab.c -I$(INC) -o $(OBJ)/y.tab.o
+	$(CC) $(CFLAGS) -c $(SRC)/y.tab.c -I$(INC) -o $(OBJ)/y.tab.o
 
 $(OBJ)/lex.yy.o: $(SRC)/lex.yy.c
 	@mkdir -p $(OBJ)
-	$(CC) -c $(SRC)/lex.yy.c -I$(INC) -o $(OBJ)/lex.yy.o
+	$(CC) $(CFLAGS) -c $(SRC)/lex.yy.c -I$(INC) -o $(OBJ)/lex.yy.o
 
 # Also $(INC)/y.tab.h
 $(SRC)/y.tab.c: $(SRC)/calc.y
@@ -38,9 +45,9 @@ $(SRC)/lex.yy.c: $(SRC)/calc.l
 
 $(OBJ)/symtab.o: $(SRC)/symtab.c $(INC)/symtab.h
 	@mkdir -p $(OBJ)
-	$(CC) -c $(SRC)/symtab.c -I$(INC) -o $(OBJ)/symtab.o
+	$(CC) $(CFLAGS) -c $(SRC)/symtab.c -I$(INC) -o $(OBJ)/symtab.o
 
-run: $(BIN)/$(EXENAME)
+run: all
 	$(BIN)/$(EXENAME)
 
 clean:

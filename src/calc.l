@@ -24,5 +24,5 @@
 
 int main(void) {
     yyparse();
-    return ;
+    return 0;
 }
