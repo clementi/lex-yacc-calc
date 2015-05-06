@@ -29,7 +29,7 @@ $(OBJ)/lex.yy.o: $(SRC)/lex.yy.c
 
 # Also $(INC)/y.tab.h
 $(SRC)/y.tab.c: $(SRC)/calc.y
-	@mkdir -p $(SRC) $(BIN)
+	@mkdir -p $(SRC) $(INC)
 	$(YACC) --defines=$(INC)/y.tab.h $(SRC)/calc.y -o $(SRC)/y.tab.c
 
 $(SRC)/lex.yy.c: $(SRC)/calc.l
