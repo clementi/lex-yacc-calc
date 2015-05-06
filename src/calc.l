@@ -1,7 +1,6 @@
 %{
 #include "y.tab.h"
 #include "symtab.h"
-#include <math.h>
 %}
 
 %%

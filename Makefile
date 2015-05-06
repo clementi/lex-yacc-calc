@@ -17,6 +17,8 @@ LIBLEX=-ll
 YACC=yacc
 LIBYACC=-ly
 
+LIBMATH=-lm
+
 all: $(BIN)/$(EXENAME)
 
 dev: CFLAGS=-g -Wall -Wextra
@@ -24,7 +26,7 @@ dev: all
 
 $(BIN)/$(EXENAME): $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o
 	@mkdir -p $(BIN)
-	$(CC) $(CFLAGS) $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC)
+	$(CC) $(CFLAGS) $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC) $(LIBMATH)
 
 $(OBJ)/y.tab.o: $(SRC)/y.tab.c $(INC)/y.tab.h
 	@mkdir -p $(OBJ)

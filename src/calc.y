@@ -1,4 +1,5 @@
 %{
+#include <math.h>
 #include <stdio.h>
 #include "symtab.h"
 %}
@@ -12,6 +13,7 @@
 %token <dval> NUMBER
 %left '-' '+'
 %left '*' '/'
+%right '^'
 %nonassoc UMINUS
 %type <dval> expression
 %%
@@ -33,6 +35,7 @@ expression: expression '+' expression { $$ = $1 + $3; }
             $$ = $1 / $3;
     }
     | '-' expression %prec UMINUS { $$ = -$2; }
+    | expression '^' expression { $$ = pow($1, $3); }
     | '(' expression ')' { $$ = $2; }
     | NUMBER
     | NAME { $$ = $1->value; }
