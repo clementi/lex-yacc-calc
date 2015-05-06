@@ -15,8 +15,8 @@ LIBLEX=-ll
 YACC=yacc
 LIBYACC=-ly
 
-$(BIN)/$(EXENAME): ensure_dirs $(OBJ)/y.tab.o $(OBJ)/lex.yy.o
-	$(CC) $(OBJ)/y.tab.o $(OBJ)/lex.yy.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC)
+$(BIN)/$(EXENAME): ensure_dirs $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o
+	$(CC) $(OBJ)/y.tab.o $(OBJ)/lex.yy.o $(OBJ)/symtab.o -o $(BIN)/$(EXENAME) $(LIBLEX) $(LIBYACC)
 
 $(OBJ)/y.tab.o: ensure_dirs $(SRC)/y.tab.c $(INC)/y.tab.h
 	$(CC) -c $(SRC)/y.tab.c -I$(INC) -o $(OBJ)/y.tab.o
@@ -30,6 +30,9 @@ $(SRC)/y.tab.c: ensure_dirs $(SRC)/calc.y
 
 $(SRC)/lex.yy.c: ensure_dirs $(SRC)/calc.l
 	$(LEX) -o $(SRC)/lex.yy.c $(SRC)/calc.l 
+
+$(OBJ)/symtab.o: $(SRC)/symtab.c $(INC)/symtab.h
+	$(CC) -c $(SRC)/symtab.c -I$(INC) -o $(OBJ)/symtab.o
 
 generate: ensure_dirs $(SRC)/calc.l $(SRC)/calc.y
 	$(LEX) -o $(SRC)/lex.yy.c $(SRC)/calc.l 

@@ -1,5 +1,6 @@
 %{
 #include "y.tab.h"
+#include "symtab.h"
 #include <math.h>
 %}
 
@@ -11,8 +12,8 @@
 
 [ \t] ; // ignore whitespace
 
-[a-z]   {
-    yylval.vblno = yytext[0] - 'a';
+[A-Za-z][A-Za-z0-9]*   {
+    yylval.symp = symlook(yytext);
     return NAME;
 }
 
